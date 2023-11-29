@@ -6,10 +6,10 @@ import socket
 def obter_diretorio_padrao():
     sistema_operacional = os.name
 
-    if sistema_operacional == 'posix':  # Linux
-        return "/opt/e-SUS/database/postgresql-9.6.13-1-linux-x64/data/pg_hba.conf"
-    elif sistema_operacional == 'nt':  # Windows
-        return "C:\\Program Files\\e-SUS\\database\\postgresql-9.6.13-4-windows-x64\\data\\pg_hba.conf"
+    if sistema_operacional == 'posix' and os.path.exists("/opt/e-SUS/database/postgresql-9.6.13-1-linux-x64/data/pg_hba.conf"):  # Linux
+        return "/opt/e-SUS/database/postgresql-9.6.13-1-linux-x64/data/"
+    elif sistema_operacional == 'nt' and os.path.exists("C:\\Program Files\\e-SUS\\database\\postgresql-9.6.13-4-windows-x64\\data\\pg_hba.conf"):  # Windows
+        return "C:\\Program Files\\e-SUS\\database\\postgresql-9.6.13-4-windows-x64\\data\\"
     else:
         return None
 
@@ -42,7 +42,7 @@ def verifica_pg_hba_conf():
     padrao_hostssl = re.compile(r'^\s*hostssl\s+.*\s+.*\s+(\d+\.\d+\.\d+\.\d+/\d+)\s+md5$')
 
     # Padrão para linhas no formato host all all all trust
-    padrao_host_all_trust = re.compile(r'^\s*host\s+.*\s+.*\s+.*\s+trust$')
+    padrao_host_all_trust = re.compile(r'^\s*(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+trust$')
 
     hosts_potencialmente_inseguros = False
 
