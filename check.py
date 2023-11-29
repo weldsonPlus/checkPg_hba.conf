@@ -96,5 +96,7 @@ def verifica_pg_hba_conf():
 
     if not hosts_potencialmente_inseguros:
         print("Configuração do pg_hba.conf passou no teste. Não foram encontrados hosts com configurações potencialmente inseguras.")
+
+    input("\nPressione Enter para encerrar o programa.")
 # Executa a função de verificação
 verifica_pg_hba_conf()
